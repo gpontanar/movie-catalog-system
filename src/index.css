@@ -1,13 +1,180 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Navbar Styles */
+.custom-navbar {
+  background-color: maroon;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.navbar-brand {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.btn-company {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.navbar-toggler {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
+}
+
+.navbar-middle,
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-middle .nav-link {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-middle .nav-link:hover {
+  color: lightgray;
+}
+
+.navbar-right .btn {
+  color: white;
+  border: none;
+  padding: 10px 20px; /* Ensure consistent button size */
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  min-width: 100px; /* Ensure buttons have the same width */
+  text-align: center;
+}
+
+.navbar-right .btn-login {
+  background-color: red;
+}
+
+.navbar-right .btn-register {
+  background-color: red;
+}
+
+.navbar-right .btn:hover {
+  background-color: pink;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar-toggler {
+    display: block;
+  }
+
+  .navbar-middle,
+  .navbar-right {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-middle.show,
+  .navbar-right.show {
+    display: flex;
+  }
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  border: 2px solid red; /* Debug border */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.modal-content {
+  background-color: white;
+  width: 350px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background-color: maroon;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px; /* Adjusted font size */
+}
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-body .form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn-login-modal {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-login-modal:hover {
+  background-color: pink;
 }
