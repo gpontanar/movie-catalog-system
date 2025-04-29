@@ -5,9 +5,14 @@ const Movies = () => {
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/movies/getMovies`)
-      .then(res => res.json())
-      .then(data => setMovies(data.movies))
-      .catch(err => console.error(err));
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => setMovies(data.movies))
+      .catch((err) => console.error('Fetch error:', err));
   }, []);
 
   return (
