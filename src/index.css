@@ -267,6 +267,7 @@
   background-color: deeppink;
   color: white;
 }
+
 /* Add Comment Button */
 #addComment {
   background-color: green;
@@ -287,4 +288,36 @@
 textarea.form-control {
   resize: none;
   height: 100px;
+}
+
+/* Dashboard Button */
+.btn-dashboard {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-dashboard:hover {
+  background-color: darkblue;
+}
+
+/* Logout Button */
+.btn-logout {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-logout:hover {
+  background-color: darkred;
 }

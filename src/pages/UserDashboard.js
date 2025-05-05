@@ -24,7 +24,7 @@ const UserDashboard = () => {
       alert('Comment cannot be empty!');
       return;
     }
-  
+
     fetch(`${process.env.REACT_APP_API_URL}/movies/addComment/${movieId}`, {
       method: 'POST',
       headers: {
@@ -67,6 +67,12 @@ const UserDashboard = () => {
                 <h5 className="card-title">{movie.title}</h5>
                 <p className="card-text">
                   <strong>By:</strong> {movie.director}
+                </p>
+                <p className="card-text">
+                  <strong>Year:</strong> {movie.year}
+                </p>
+                <p className="card-text">
+                  <strong>Genre:</strong> {movie.genre}
                 </p>
                 <p className="card-text">{movie.description}</p>
                 <button

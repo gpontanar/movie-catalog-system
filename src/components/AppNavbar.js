@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import UserContext from '../UserContext';
 
 const AppNavbar = () => {
-    const { setUser } = useContext(UserContext);
+    const { user, logoutUser, setUser } = useContext(UserContext); // Access user, logoutUser, and setUser from context
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [showRegisterModal, setShowRegisterModal] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -31,14 +31,13 @@ const AppNavbar = () => {
             .then((data) => {
                 localStorage.setItem('token', data.access);
                 localStorage.setItem('user', JSON.stringify(data.user));
-                setUser(data.user);
-    
-                // Redirect based on user role
-                if (data.user?.isAdmin) {
-                    navigate('/admin-dashboard');
-                } else {
-                    navigate('/user-dashboard');
-                }
+                setUser(data.user); // Update user context
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful',
+                    text: 'Welcome back!',
+                });
+                navigate('/user-dashboard'); // Redirect to user dashboard after login
                 setShowLoginModal(false); // Close the modal after successful login
             })
             .catch((err) => {
@@ -50,6 +49,18 @@ const AppNavbar = () => {
                 });
             });
     };
+
+    const handleLogout = () => {
+        logoutUser(); // Clear user data from context and localStorage
+        Swal.fire({
+            icon: 'success',
+            title: 'Logged Out',
+            text: 'You have been logged out successfully.',
+        });
+        navigate('/'); // Redirect to the home page
+        setUser(null); // Clear the user context to update the navbar
+    };
+
     const handleRegister = (e) => {
         e.preventDefault();
         fetch(`${process.env.REACT_APP_API_URL}/users/register`, {
@@ -57,7 +68,7 @@ const AppNavbar = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ fullName, email, password }),
+            body: JSON.stringify({ email, password, fullName }),
         })
             .then((res) => {
                 if (!res.ok) {
@@ -65,7 +76,7 @@ const AppNavbar = () => {
                 }
                 return res.json();
             })
-            .then(() => {
+            .then((data) => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Registration Successful',
@@ -105,24 +116,40 @@ const AppNavbar = () => {
                 </div>
                 <div className={`navbar-right ${menuOpen ? 'active' : ''}`}>
                     <div className="navbar-buttons">
-                        <button
-                            className="btn btn-login"
-                            onClick={() => {
-                                setShowLoginModal(true);
-                                setMenuOpen(false);
-                            }}
-                        >
-                            Login
-                        </button>
-                        <button
-                            className="btn btn-register"
-                            onClick={() => {
-                                setShowRegisterModal(true);
-                                setMenuOpen(false);
-                            }}
-                        >
-                            Register
-                        </button>
+                        {user?.id ? (
+                            <>
+                                <button
+                                    className="btn btn-dashboard"
+                                    onClick={() => navigate('/user-dashboard')}
+                                >
+                                    Dashboard
+                                </button>
+                                <button className="btn btn-logout" onClick={handleLogout}>
+                                    Logout
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button
+                                    className="btn btn-login"
+                                    onClick={() => {
+                                        setShowLoginModal(true);
+                                        setMenuOpen(false);
+                                    }}
+                                >
+                                    Login
+                                </button>
+                                <button
+                                    className="btn btn-register"
+                                    onClick={() => {
+                                        setShowRegisterModal(true);
+                                        setMenuOpen(false);
+                                    }}
+                                >
+                                    Register
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
                 <div className="hamburger-menu" onClick={() => setMenuOpen(!menuOpen)}>
