@@ -1,57 +1,27 @@
-// import { useState, useEffect } from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import { Navigate } from 'react-router-dom';
-
-// import AppNavbar from './components/AppNavbar';
-// import Login from './pages/Login';
-// import { UserProvider } from './UserContext';
-// import Home from './pages/Home';
-// import Register from './pages/Register';
-// import Movies from './pages/Movies';
-// import AdminDashboard from './pages/AdminDashboard';
-// import UserDashboard from './pages/UserDashboard';
-
-import { useState, useEffect } from 'react';
+import './App.css';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import AppNavbar from './components/AppNavbar';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import Home from './pages/Home';
-import { UserProvider } from './UserContext';
+import UserDashboard from './pages/UserDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import { UserProvider } from './UserContext'; // Import UserProvider
+import './index.css';
 
 function App() {
-    const [user, setUser] = useState({
-        id: null,
-    });
-
-    const unsetUser = () => {
-        localStorage.clear();
-    };
-
-    useEffect(() => {
-        fetch(` `, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (typeof data.user !== 'undefined') {
-                    setUser({
-                        id: data.user._id,
-                    });
-                } else {
-                    setUser({
-                        id: null,
-                    });
-                }
-            });
-    }, []);
-
     return (
-        <UserProvider>
+        <UserProvider> {/* Wrap the entire app with UserProvider */}
             <Router>
-            <AppNavbar />
+                <AppNavbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/user-dashboard" element={<UserDashboard />} />
+                    <Route path="/admin-dashboard" element={<AdminDashboard />} />
                 </Routes>
             </Router>
         </UserProvider>

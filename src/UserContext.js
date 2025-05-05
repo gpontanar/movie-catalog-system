@@ -5,27 +5,38 @@ const UserContext = React.createContext();
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState({
         id: null,
-        isAdmin: false,
+        token: null, // Add token to user state
     });
+    const [loading, setLoading] = useState(true); // Add loading state
 
+    // Load user data from localStorage on app initialization
     useEffect(() => {
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-          setUser(JSON.parse(storedUser));
-      }
-      console.log('User initialized:', storedUser);
-  }, []);
+        const storedUser = localStorage.getItem('user');
+        try {
+            if (storedUser) {
+                setUser(JSON.parse(storedUser)); // Safely parse JSON
+            }
+        } catch (error) {
+            console.error('Error parsing stored user data:', error);
+            localStorage.removeItem('user'); // Clear invalid data
+        }
+    }, []);
 
-    const unsetUser = () => {
-        localStorage.clear();
+  const loginUser = (userData) => {
+    localStorage.setItem('user', JSON.stringify(userData)); // Save user data to localStorage
+    setUser(userData); // Update user state
+};
+
+    const logoutUser = () => {
+        localStorage.clear(); // Clear all localStorage data
         setUser({
             id: null,
-            isAdmin: false,
+            token: null,
         });
     };
 
     return (
-        <UserContext.Provider value={{ user, setUser, unsetUser }}>
+        <UserContext.Provider value={{ user, setUser, loginUser, logoutUser, loading }}>
             {children}
         </UserContext.Provider>
     );

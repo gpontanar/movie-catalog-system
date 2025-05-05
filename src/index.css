@@ -1,3 +1,4 @@
+
 /* Navbar Styles */
 .custom-navbar {
   background-color: maroon;
@@ -15,76 +16,91 @@
 }
 
 .navbar-logo {
-  width: 50px;
-  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  width: 40px;
+  height: 40px;
   margin-right: 10px;
 }
 
-.navbar-brand {
+.company-name {
   font-size: 20px;
   font-weight: bold;
   color: white;
   text-decoration: none;
 }
 
-.btn-company {
-  background-color: transparent;
-  color: white;
-  border: none;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.navbar-toggler {
-  background-color: transparent;
-  color: white;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  display: none;
-}
-
-.navbar-middle,
-.navbar-right {
+.navbar-center {
   display: flex;
-  align-items: center;
+  gap: 20px;
 }
 
-.navbar-middle .nav-link {
+.nav-link {
   color: white;
   font-size: 18px;
   font-weight: bold;
   text-decoration: none;
 }
 
-.navbar-middle .nav-link:hover {
+.nav-link:hover {
   color: lightgray;
 }
 
-.navbar-right .btn {
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-buttons .btn {
+  background-color: red;
   color: white;
   border: none;
-  padding: 10px 20px; /* Ensure consistent button size */
+  padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
   border-radius: 5px;
   margin-left: 10px;
   cursor: pointer;
-  min-width: 100px; /* Ensure buttons have the same width */
-  text-align: center;
 }
 
-.navbar-right .btn-login {
-  background-color: red;
+.navbar-buttons .btn:hover {
+  background-color: deeppink;
 }
 
-.navbar-right .btn-register {
-  background-color: red;
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
 }
 
-.navbar-right .btn:hover {
-  background-color: pink;
+.hamburger-menu .bar {
+  background-color: white;
+  height: 3px;
+  width: 25px;
+  margin: 3px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar-center,
+  .navbar-right {
+    display: none;
+  }
+
+  .navbar-center.active,
+  .navbar-right.active {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+  }
+
+  .hamburger-menu {
+    display: flex;
+  }
 }
 
 /* Responsive Styles */
@@ -110,13 +126,12 @@
 /* Modal Styles */
 .modal {
   position: fixed;
-  border: 2px solid red; /* Debug border */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  display: flex !important;
+  display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000; /* Ensure it appears above other elements */
@@ -124,8 +139,8 @@
 
 .modal-content {
   background-color: white;
-  width: 350px;
-  border-radius: 8px;
+  width: 500px; /* Adjusted width */
+  border-radius: 10px; 
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -137,12 +152,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top-left-radius: 10px; 
+  border-top-right-radius: 10px;
 }
 
 .modal-header h2 {
   margin: 0;
-  font-size: 18px; /* Adjusted font size */
+  font-size: 20px; /* Adjusted font size */
+  font-weight: bold;
 }
+
 .close-btn {
   background: none;
   border: none;
@@ -153,18 +172,21 @@
 
 .modal-body {
   padding: 20px;
+  display: flex;
+  flex-direction: column; /* Align items vertically */
+  gap: 30px; /* Add spacing between elements */
 }
 
 .modal-body .form-control {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
+  padding: 15px; /* Adjust padding for larger text boxes */
+  border: 2px solid #ccc;
   border-radius: 5px;
+  font-size: 16px; /* Adjust font size */
 }
 
 .btn-login-modal {
-  background-color: red;
+  background-color: red; /* Button color */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -172,9 +194,97 @@
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;
+  width: 100%; /* Full-width button */
+  margin-top: 20px; /* Add spacing above the button */
+  text-align: center; /* Center the button text */
 }
 
 .btn-login-modal:hover {
-  background-color: pink;
+  background-color: deeppink; /* Slightly darker shade on hover */
+}
+
+/* Center the header text */
+.text-center {
+  text-align: center;
+}
+
+/* Modal adjustments */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  width: 600px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* View Comments Button */
+.btn-toggle-comments {
+  background-color: maroon;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-toggle-comments:hover {
+  background-color: deeppink;
+  color: white;
+}
+/* Add Comment Button */
+#addComment {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#addComment:hover {
+  background-color: darkgreen;
+}
+
+/* Textarea Styling */
+textarea.form-control {
+  resize: none;
+  height: 100px;
 }
