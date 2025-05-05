@@ -3,40 +3,29 @@ import React, { useState, useEffect } from 'react';
 const UserContext = React.createContext();
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState({
-        id: null,
-        token: null, // Add token to user state
-    });
-    const [loading, setLoading] = useState(true); // Add loading state
+    const [user, setUser] = useState(null); // Default to null
+    const [loading, setLoading] = useState(true);
 
-    // Load user data from localStorage on app initialization
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
-        try {
-            if (storedUser) {
-                setUser(JSON.parse(storedUser)); // Safely parse JSON
+        if (storedUser) {
+            try {
+                setUser(JSON.parse(storedUser)); // Parse and set user from localStorage
+            } catch (error) {
+                console.error('Error parsing user data:', error);
+                localStorage.removeItem('user'); // Clear invalid data
             }
-        } catch (error) {
-            console.error('Error parsing stored user data:', error);
-            localStorage.removeItem('user'); // Clear invalid data
         }
+        setLoading(false);
     }, []);
 
-  const loginUser = (userData) => {
-    localStorage.setItem('user', JSON.stringify(userData)); // Save user data to localStorage
-    setUser(userData); // Update user state
-};
-
     const logoutUser = () => {
-        localStorage.clear(); // Clear all localStorage data
-        setUser({
-            id: null,
-            token: null,
-        });
+        localStorage.clear();
+        setUser(null);
     };
 
     return (
-        <UserContext.Provider value={{ user, setUser, loginUser, logoutUser, loading }}>
+        <UserContext.Provider value={{ user, setUser, logoutUser, loading }}>
             {children}
         </UserContext.Provider>
     );
