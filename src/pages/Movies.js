@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  const [expandedMovieId, setExpandedMovieId] = useState(null); // State to track expanded movie
+  const [expandedMovieId, setExpandedMovieId] = useState(null);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/movies/getMovies`)
@@ -17,7 +17,7 @@ const Movies = () => {
   }, []);
 
   const toggleComments = (movieId) => {
-    setExpandedMovieId((prevId) => (prevId === movieId ? null : movieId)); // Toggle comments visibility
+    setExpandedMovieId((prevId) => (prevId === movieId ? null : movieId));
   };
 
   return (
@@ -26,13 +26,18 @@ const Movies = () => {
         {movies.map((movie) => (
           <div className="col-md-12 mb-4" key={movie._id}>
             <div className="card">
+              <img
+                src={movie.image || 'https://www.shutterstock.com/image-vector/cinema-film-strip-wave-reel-600nw-1422026513.jpg'} 
+                alt={movie.title}
+                className="card-img-top movie-image"
+              />
               <div className="card-body">
-                <h5 className="card-title">{movie.title}</h5>
-                <p className="card-text">
-                  <strong>By:</strong> {movie.director}
-                </p>
+                <h2 className="card-title">{movie.title}</h2>
                 <p className="card-text">
                   <strong>Year:</strong> {movie.year}
+                </p>
+                <p className="card-text">
+                  <strong>Director:</strong> {movie.director}
                 </p>
                 <p className="card-text">
                   <strong>Genre:</strong> {movie.genre}

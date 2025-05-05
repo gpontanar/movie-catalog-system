@@ -32,12 +32,20 @@ const AppNavbar = () => {
                 localStorage.setItem('token', data.access);
                 localStorage.setItem('user', JSON.stringify(data.user));
                 setUser(data.user); // Update user context
+    
                 Swal.fire({
                     icon: 'success',
                     title: 'Login Successful',
                     text: 'Welcome back!',
                 });
-                navigate('/user-dashboard'); // Redirect to user dashboard after login
+    
+                // Redirect based on user role
+                if (data.user.isAdmin) {
+                    navigate('/admin-dashboard'); // Redirect to Admin Dashboard
+                } else {
+                    navigate('/user-dashboard'); // Redirect to User Dashboard
+                }
+    
                 setShowLoginModal(false); // Close the modal after successful login
             })
             .catch((err) => {
@@ -110,9 +118,9 @@ const AppNavbar = () => {
                     <Link to="/" className="nav-link" onClick={() => setMenuOpen(false)}>
                         Home
                     </Link>
-                    <Link to="/movies" className="nav-link" onClick={() => setMenuOpen(false)}>
+                    {/* <Link to="/movies" className="nav-link" onClick={() => setMenuOpen(false)}>
                         Movies
-                    </Link>
+                    </Link> */}
                 </div>
                 <div className={`navbar-right ${menuOpen ? 'active' : ''}`}>
                     <div className="navbar-buttons">
@@ -120,7 +128,13 @@ const AppNavbar = () => {
                             <>
                                 <button
                                     className="btn btn-dashboard"
-                                    onClick={() => navigate('/user-dashboard')}
+                                    onClick={() => {
+                                        if (user?.isAdmin) {
+                                            navigate('/admin-dashboard'); // Redirect to Admin Dashboard if the user is an admin
+                                        } else {
+                                            navigate('/user-dashboard'); // Redirect to User Dashboard if the user is not an admin
+                                        }
+                                    }}
                                 >
                                     Dashboard
                                 </button>
